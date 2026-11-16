@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robotic_arm_control</name>
+  <version>1.0.0</version>
+  <description>Controllers configuration, kinematics/IK, homing, pick-and-place state machine, E-stop and logger of the 6-axis arm.</description>
+  <maintainer email="team@todo.invalid">engineers over engineering</maintainer>
+  <license>BSD-3-Clause</license>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>controller_manager_msgs</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <export><build_type>ament_python</build_type></export>
+</package>

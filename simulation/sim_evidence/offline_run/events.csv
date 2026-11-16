@@ -1,0 +1,69 @@
+t,state,event
+0.0,HOMING,state
+0.0,HOMING,homing J4: seeking the limit switch at -43.58 deg
+1.866,HOMING,limit switch J4 triggered at -43.584 deg
+2.167,HOMING,"homing J4: switch hit at -43.584 deg (overshoot 0.003 deg), back off 5.0 deg, zero set"
+2.889,HOMING,homing J3: seeking the limit switch at 14.84 deg
+4.748,HOMING,limit switch J3 triggered at 14.841 deg
+5.048,HOMING,"homing J3: switch hit at 14.841 deg (overshoot 0.000 deg), back off 5.0 deg, zero set"
+5.77,HOMING,homing J2: seeking the limit switch at -8.74 deg
+7.25,HOMING,limit switch J2 triggered at -8.743 deg
+7.55,HOMING,"homing J2: switch hit at -8.743 deg (overshoot 0.006 deg), back off 5.0 deg, zero set"
+8.272,HOMING,homing J1: seeking the limit switch at -20.00 deg
+10.778,HOMING,limit switch J1 triggered at -20.003 deg
+11.079,HOMING,"homing J1: switch hit at -20.003 deg (overshoot 0.003 deg), back off 5.0 deg, zero set"
+11.801,HOMING,homing done
+11.801,HOME,state
+14.98,HOME,feed cube_1 to the pick location
+14.98,APPROACH,state
+15.732,DESCEND,state
+17.342,GRASP,state
+18.142,GRASP,attach cube_1
+18.142,LIFT,state
+19.752,CLASSIFY,state
+20.352,CLASSIFY,cycle 1: cube_1 classified red -> bin_red
+20.352,MOVE_TO_BIN,state
+23.878,RELEASE,state
+23.878,RELEASE,detach cube_1
+24.678,RETURN,state
+28.204,HOME,state
+28.504,HOME,feed cube_2 to the pick location
+28.504,APPROACH,state
+29.254,DESCEND,state
+30.864,GRASP,state
+31.664,GRASP,attach cube_2
+31.664,LIFT,state
+33.274,CLASSIFY,state
+33.875,CLASSIFY,cycle 2: cube_2 classified blue -> bin_blue
+33.875,MOVE_TO_BIN,state
+37.422,RELEASE,state
+37.422,RELEASE,detach cube_2
+38.224,RETURN,state
+41.771,HOME,state
+42.072,HOME,feed cube_3 to the pick location
+42.072,APPROACH,state
+42.824,DESCEND,state
+44.434,GRASP,state
+45.236,GRASP,attach cube_3
+45.236,LIFT,state
+46.846,CLASSIFY,state
+47.447,CLASSIFY,cycle 3: cube_3 classified blue -> bin_blue
+47.447,MOVE_TO_BIN,state
+50.994,RELEASE,state
+50.994,RELEASE,detach cube_3
+51.796,RETURN,state
+55.343,HOME,state
+55.644,HOME,feed cube_4 to the pick location
+55.644,APPROACH,state
+56.396,DESCEND,state
+58.006,GRASP,state
+58.808,GRASP,attach cube_4
+58.808,LIFT,state
+60.418,CLASSIFY,state
+61.019,CLASSIFY,cycle 4: cube_4 classified red -> bin_red
+61.019,MOVE_TO_BIN,state
+64.545,RELEASE,state
+64.545,RELEASE,detach cube_4
+65.345,RETURN,state
+68.871,HOME,state
+69.171,HOME,program finished

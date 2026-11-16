@@ -1,0 +1,49 @@
+# Task definition shared by the Gazebo demo and the offline analysis.
+# Frame: world origin = centre of the arm base on the table top, Z up, table top at z = 0.
+# All values here are ASSUMPTIONS chosen from the reach/torque study (see README) - edit freely.
+payload:
+  size: 0.030          # m, cube edge
+  mass: 0.050          # kg
+stations:
+  pick:  {r: 0.200, azimuth_deg: 0.0,   surface_z: 0.185, stand_size: 0.050}
+  bin_red:  {r: 0.210, azimuth_deg: 80.0,  floor_z: 0.140, rim_z: 0.180, outer: 0.090, wall: 0.004}
+  bin_blue: {r: 0.210, azimuth_deg: -80.0, floor_z: 0.140, rim_z: 0.180, outer: 0.090, wall: 0.004}
+tool:                  # one tool orientation for the whole cycle (chosen for >= 25 mm self-clearance)
+  jaw_yaw_deg: 150.0   # jaw sliding direction, relative to the station azimuth (the cube is fed with this yaw)
+  tilt_deg: -10.0      # tilt of the tool axis from vertical, about the jaw axis
+heights:               # tcp heights above the table top
+  grasp: 0.205         # 5 mm above the cube centre (cube centre at 0.200 on the stand)
+  travel: 0.260        # approach / lift / carry height
+  release: 0.225       # above the bin (cube bottom 30 mm above the rim)
+cubes:                 # one cube per cycle, fed to the pick location; colour decides the bin
+  - {name: cube_1, color: red}
+  - {name: cube_2, color: blue}
+  - {name: cube_3, color: blue}
+  - {name: cube_4, color: red}
+feeder_park:           # where the waiting cubes sit before they are fed (on the table)
+  x: -0.30
+  y0: -0.09
+  dy: 0.06
+gripper:
+  open: 0.0            # jaw joint position (m) -> 70 mm gap
+  closed: 0.019        # -> 32 mm gap: 1 mm clearance per side, the cube is held by the attach joint
+  mu: 0.5              # friction coefficient jaw pad / object (assumed)
+  pinion_radius: 0.010 # m, rack-and-pinion pitch radius (assumed)
+motion:
+  stepper_speed_deg_s: 60.0     # planned joint speed J1..J4 (design book 1.4.2)
+  stepper_accel_deg_s2: 120.0
+  servo_speed_deg_s: 120.0      # planning speed J5, J6 (servo capability is about 400 deg/s)
+  servo_accel_deg_s2: 480.0
+  settle_s: 0.25
+  grasp_dwell_s: 0.5
+  classify_dwell_s: 0.6
+ik_seed_deg: [15, 14, -27, 93, -34, 8]   # "elbow forward" family: lowest J2/J3 gravity torque
+start_pose_deg: auto            # 'auto' = balanced pose (gravity torque of J2..J4 = 0), computed from the URDF
+homing:                # virtual limit switches, J4 -> J1.  switch angle = start pose + offset
+  order: [3, 2, 1, 0]
+  switch_offset_deg: [-20.0, -12.0, 15.0, -15.0]   # J1..J4
+  seek_speed_deg_s: 8.0
+  backoff_deg: 5.0
+estop_test:
+  hold_state: LIFT     # the E-stop is pressed while the arm holds the payload at the travel height
+  duration_s: 3.0
