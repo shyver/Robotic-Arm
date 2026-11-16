@@ -1,0 +1,7 @@
+joint,actuator,available_Nm,static_worst_pose_Nm,required_x1.5_Nm,margin,static_task_Nm,required_task_x1.5_Nm,margin_task
+J2 shoulder,17HS4401 + 1:14,3.90,8.375,12.562,0.31,1.863,2.794,1.40
+J3 elbow,17HS4401 + 1:14,3.90,4.206,6.310,0.62,0.627,0.941,4.15
+J4 wrist pitch,17HS4401 + 1:14,3.90,1.453,2.180,1.79,1.300,1.949,2.00
+J5 wrist roll,DS3218MG,1.96,0.808,1.212,1.62,0.099,0.149,13.14
+J6 tool,DS3218MG,1.96,0.002,0.003,617.35,0.000,0.001,inf
+Gripper,MG996R,1.08,0.005,0.007,146.79,0.005,0.007,146.79

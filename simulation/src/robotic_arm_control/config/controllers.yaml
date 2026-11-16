@@ -1,0 +1,67 @@
+# ros2_control controllers (ROS 2 Humble, ign_ros2_control / Gazebo Fortress).
+# All arm joints use the EFFORT interface with a PID in the joint trajectory controller:
+#  - the commanded torque is the actuator torque that is logged and plotted,
+#  - the E-stop can remove the torque of J1..J4 (deactivate stepper_controller), like a disabled driver.
+# Torque limits (3.9 N.m steppers, 1.96 N.m servos) are the URDF <limit effort> values.
+controller_manager:
+  ros__parameters:
+    update_rate: 1000
+    use_sim_time: true
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    stepper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    servo_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+    estop_effort_controller:
+      type: forward_command_controller/ForwardCommandController
+
+stepper_controller:            # J1..J4: NEMA17 + 1:14 cycloidal gearbox
+  ros__parameters:
+    joints: [base_rotation_joint, shoulder_lift_joint, elbow_joint, wrist_pitch_joint]
+    command_interfaces: [effort]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 100.0
+    allow_partial_joints_goal: false
+    open_loop_control: false
+    constraints:
+      stopped_velocity_tolerance: 0.0
+      goal_time: 0.0
+    gains:
+      base_rotation_joint: {p: 150.0, i: 50.0, d: 5.0, i_clamp: 3.9, ff_velocity_scale: 0.0}
+      shoulder_lift_joint: {p: 300.0, i: 300.0, d: 10.0, i_clamp: 3.9, ff_velocity_scale: 0.0}
+      elbow_joint:         {p: 200.0, i: 200.0, d: 5.0, i_clamp: 3.9, ff_velocity_scale: 0.0}
+      wrist_pitch_joint:   {p: 80.0, i: 100.0, d: 1.5,  i_clamp: 3.9, ff_velocity_scale: 0.0}
+
+servo_controller:              # J5, J6: DS3218MG
+  ros__parameters:
+    joints: [wrist_roll_joint, tool_rotation_joint]
+    command_interfaces: [effort]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 100.0
+    constraints:
+      stopped_velocity_tolerance: 0.0
+      goal_time: 0.0
+    gains:
+      wrist_roll_joint:    {p: 30.0, i: 30.0, d: 0.4, i_clamp: 1.96, ff_velocity_scale: 0.0}
+      tool_rotation_joint: {p: 20.0, i: 15.0, d: 0.2, i_clamp: 1.96, ff_velocity_scale: 0.0}
+
+gripper_controller:            # two jaws driven together (one MG996R, rack and pinion)
+  ros__parameters:
+    joints: [left_jaw_joint, right_jaw_joint]
+    command_interfaces: [effort]
+    state_interfaces: [position, velocity]
+    state_publish_rate: 50.0
+    constraints:
+      stopped_velocity_tolerance: 0.0
+      goal_time: 0.0
+    gains:
+      left_jaw_joint:  {p: 800.0, i: 200.0, d: 8.0, i_clamp: 10.0, ff_velocity_scale: 0.0}
+      right_jaw_joint: {p: 800.0, i: 200.0, d: 8.0, i_clamp: 10.0, ff_velocity_scale: 0.0}
+
+estop_effort_controller:       # activated by the E-stop: holds the stepper torque at exactly 0
+  ros__parameters:
+    joints: [base_rotation_joint, shoulder_lift_joint, elbow_joint, wrist_pitch_joint]
+    interface_name: effort

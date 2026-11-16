@@ -19,11 +19,15 @@ Control firmware, computer vision, and Host PC Python stack for a 6-DOF color-so
 │   ├── calibrate.py               # Lens and colour calibration tool
 │   ├── live.py                    # `Vision` class for motion code + live viewer
 │   └── docs/                      # Simulated test report, design book section 6
-└── software/
-    ├── requirements.txt           # Python dependencies (pyserial)
-    ├── arm_interface.py           # Low-level USB-CAN driver & 50 Hz telemetry listener
-    ├── sim_virtual_arm.py         # Digital twin simulator (ESP32 + 4x STM32 nodes)
-    └── verify_subsystem.py        # Automated 5-stage subsystem verification suite
+├── software/
+│   ├── requirements.txt           # Python dependencies (pyserial)
+│   ├── arm_interface.py           # Low-level USB-CAN driver & 50 Hz telemetry listener
+│   ├── sim_virtual_arm.py         # Digital twin simulator (ESP32 + 4x STM32 nodes)
+│   └── verify_subsystem.py        # Automated 5-stage subsystem verification suite
+└── simulation/                    # Gazebo (ROS 2 Humble) sim from the SolidWorks URDF, see simulation/README.md
+    ├── src/                       # description, gazebo world, control (homing, IK, pick-and-place, E-stop), analysis
+    ├── sim_evidence/              # Figures, torque table, results.json for design book Section 4
+    └── docs/                      # Technical notes: URDF fixes, assumptions, test status
 ```
 
 ---
